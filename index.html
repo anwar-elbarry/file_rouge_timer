@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Timer to May 5, 2025</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: url('./images/s1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .countdown-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background-image: url('./images/backred.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #080707;
+            text-align: center;
+        }
+        
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timer-value {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #eb2525;
+        }
+        
+        .timer-label {
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+        
+        .date-info {
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+            color: #ebebeb;
+        }
+        
+        @media (max-width: 480px) {
+            .timer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .countdown-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <img src="./images/red.png" alt="fil rourge">
+        <h1>Rattrapage Timer</h1>
+        
+        <div class="timer-grid">
+            <div class="timer-box">
+                <span id="days" class="timer-value">0</span>
+                <span class="timer-label">Days</span>
+            </div>
+            
+            <div class="timer-box">
+                <span id="hours" class="timer-value">0</span>
+                <span class="timer-label">Hours</span>
+            </div>
+            
+            <div class="timer-box">
+                <span id="minutes" class="timer-value">0</span>
+                <span class="timer-label">Minutes</span>
+            </div>
+            
+            <div class="timer-box">
+                <span id="seconds" class="timer-value">0</span>
+                <span class="timer-label">Seconds</span>
+            </div>
+        </div>
+        
+        <p class="date-info">Counting down from today<span id="current-date"></span> / gha wjed liya rassk am3lm</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display current date
+            const currentDateElement = document.getElementById('current-date');
+            currentDateElement.textContent = new Date().toLocaleDateString();
+            
+            // Set the target date: May 5, 2025
+            const targetDate = new Date('May 5, 2025 00:00:00').getTime();
+            
+            // Elements for countdown display
+            const daysElement = document.getElementById('days');
+            const hoursElement = document.getElementById('hours');
+            const minutesElement = document.getElementById('minutes');
+            const secondsElement = document.getElementById('seconds');
+            
+            // Update the countdown every second
+            const countdown = setInterval(function() {
+                // Get current date and time
+                const now = new Date().getTime();
+                
+                // Calculate the time difference
+                const difference = targetDate - now;
+                
+                // Stop countdown if target date is reached
+                if (difference <= 0) {
+                    clearInterval(countdown);
+                    daysElement.textContent = '0';
+                    hoursElement.textContent = '0';
+                    minutesElement.textContent = '0';
+                    secondsElement.textContent = '0';
+                    return;
+                }
+                
+                // Calculate days, hours, minutes, seconds
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                // Display values
+                daysElement.textContent = days;
+                hoursElement.textContent = hours;
+                minutesElement.textContent = minutes;
+                secondsElement.textContent = seconds;
+                
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
